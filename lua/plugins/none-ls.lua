@@ -1,24 +1,18 @@
-if true then return {} end -- WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE
+-- lua/plugins/none-ls.lua
 
--- Customize None-ls sources
+-- Personalizar fontes do None-ls
 
 ---@type LazySpec
 return {
   "nvimtools/none-ls.nvim",
   opts = function(_, opts)
-    -- opts variable is the default configuration table for the setup function call
-    -- local null_ls = require "null-ls"
+    local null_ls = require "null-ls"
 
-    -- Check supported formatters and linters
-    -- https://github.com/nvimtools/none-ls.nvim/tree/main/lua/null-ls/builtins/formatting
-    -- https://github.com/nvimtools/none-ls.nvim/tree/main/lua/null-ls/builtins/diagnostics
-
-    -- Only insert new sources, do not replace the existing ones
-    -- (If you wish to replace, use `opts.sources = {}` instead of the `list_insert_unique` function)
-    opts.sources = require("astrocore").list_insert_unique(opts.sources, {
-      -- Set a formatter
-      -- null_ls.builtins.formatting.stylua,
-      -- null_ls.builtins.formatting.prettier,
-    })
+    -- Vamos substituir completamente as fontes padrão.
+    -- O none-ls será responsável APENAS pela formatação com o Prettier.
+    -- Removemos o ESLint daqui para eliminar todos os erros e conflitos.
+    opts.sources = {
+      null_ls.builtins.formatting.prettier,
+    }
   end,
 }
